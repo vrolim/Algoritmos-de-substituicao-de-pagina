@@ -25,8 +25,10 @@ class Memoria:
                     self.memoria.append(elemento)
                     self.miss+=1
                     print self.memoria
+                else:
+                    self.hit+=1
                     
-        for elem in range(len(self.elementos)):
+        for elem in range(self.tamanho_mem,len(self.elementos)):
             if (self.memoria.__contains__(self.elementos[elem])):
                 self.hit+=1
             else:
@@ -50,9 +52,11 @@ class Memoria:
                     self.memoria.append(elemento)
                     self.miss+=1
                     print self.memoria
+                else:
+                    self.hit+=1
         self.ponteiro = self.tamanho_mem-1
         
-        for elem in range(len(self.elementos)):
+        for elem in range(self.tamanho_mem,len(self.elementos)):
             if (self.memoria.__contains__(self.elementos[elem])):
                 self.hit+=1
                 self.ponteiro = self.memoria.index(self.elementos[elem])
@@ -64,8 +68,47 @@ class Memoria:
         print "Tamanho da String de referencia: %i" % len(self.elementos)
         print "Total de frames: %i" %self.tamanho_mem
         print "O numero de faltas foi %i" % self.miss+" - %d" % ((self.miss*100)/(self.hit+self.miss))+"%"
+
+    def lru(self):
+        '''Algoritmo de substituicao de paginas LRU'''
+        print "--Algoritmo LRU--"
+
+        memoria_auxiliar = []
+        for elemento in self.elementos:
+            if(len(self.memoria)<self.tamanho_mem):
+                if(self.memoria.__contains__(elemento)==False):
+                    self.memoria.append(elemento)
+                    memoria_auxiliar.append([elemento,self.ponteiro])
+                    self.miss+=1
+                    print self.memoria
+                else:
+                    indice = self.memoria.index(elemento)
+                    memoria_auxiliar[indice][-1] = self.ponteiro
+                    self.hit+=1
+            self.ponteiro+=1
+
+        for elem in range(self.tamanho_mem,len(self.elementos)):
+            if (self.memoria.__contains__(self.elementos[elem])):
+                indice = self.memoria.index(self.elementos[elem])
+                memoria_auxiliar[indice][-1] = self.ponteiro
+                self.hit+=1
+            else:
+                self.miss+=1
+                lista_consulta = []
+                for i,j in memoria_auxiliar:
+                    lista_consulta.append(j)
+                e = min(lista_consulta)
+                indice = lista_consulta.index(e)
+                memoria_auxiliar[indice][-1] = self.ponteiro
+                self.memoria[indice] =  self.elementos[elem]
+                print self.memoria
+            self.ponteiro+=1
+        
+        print "Tamanho da String de referencia: %i" % len(self.elementos)
+        print "Total de frames: %i" %self.tamanho_mem
+        print "O numero de faltas foi %i" % self.miss+" - %d" % ((self.miss*100)/(self.hit+self.miss))+"%"
             
-    def otimo(self):
+    def opt(self):
         '''Algoritmo de substituicao de paginas OTIMO'''
         print "--Algoritmo OTIMO--"
         for elemento in self.elementos:
@@ -74,8 +117,10 @@ class Memoria:
                     self.memoria.append(elemento)
                     self.miss+=1
                     print self.memoria
+                else:
+                    self.hit+=1
 
-        for elem in range(len(self.elementos)):
+        for elem in range(self.tamanho_mem,len(self.elementos)):
             memoria_auxiliar = []
             if (self.memoria.__contains__(self.elementos[elem])):
                 self.hit+=1
@@ -100,6 +145,6 @@ class Memoria:
 ##Paginacao([array de elementos],tamanho da memoria) como o exemplo abaixo
 if __name__=="__main__":
     #mude aqui para alterar os parametros
-    configuracao = Memoria([1,2,3,4,5,6,7,8,9],3)
+    configuracao = Memoria([9,7,9,4,1,4,0,3,0,6],3)
     #mude aqui para alterar o algoritmo
-    configuracao.mru()
+    configuracao.lru()
