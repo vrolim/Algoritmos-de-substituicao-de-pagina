@@ -4,6 +4,7 @@
 ##BACHARELADO EM CIENCIA DA COMPUTACAO     ##
 ##SISTEMAS OPERACIONAIS                    ##
 ##AUTOR: VITOR ROLIM                       ##
+##PYTHON VERSION 2.7                       ##
 #############################################
 
 class Memoria:
