@@ -40,7 +40,7 @@ class Memoria:
                 else:
                     self.ponteiro+=1
                 print self.memoria
-        print "Tamanho da String de referencia: %i" % len(self.elementos)
+        print "Tamanho da String de referencia: %i" % len(self.elementos)+" | "+str(self.elementos)
         print "Total de frames: %i" %self.tamanho_mem
         print "O numero de faltas foi %i" % self.miss+" - %d" % ((self.miss*100)/(self.hit+self.miss))+"%"
 
@@ -66,7 +66,7 @@ class Memoria:
                 self.memoria[self.ponteiro] = self.elementos[elem]
 
                 print self.memoria
-        print "Tamanho da String de referencia: %i" % len(self.elementos)
+        print "Tamanho da String de referencia: %i" % len(self.elementos)+" | "+str(self.elementos)
         print "Total de frames: %i" %self.tamanho_mem
         print "O numero de faltas foi %i" % self.miss+" - %d" % ((self.miss*100)/(self.hit+self.miss))+"%"
 
@@ -105,7 +105,7 @@ class Memoria:
                 print self.memoria
             self.ponteiro+=1
         
-        print "Tamanho da String de referencia: %i" % len(self.elementos)
+        print "Tamanho da String de referencia: %i" % len(self.elementos)+" | "+str(self.elementos)
         print "Total de frames: %i" %self.tamanho_mem
         print "O numero de faltas foi %i" % self.miss+" - %d" % ((self.miss*100)/(self.hit+self.miss))+"%"
             
@@ -137,7 +137,7 @@ class Memoria:
                         print self.memoria
                         break
 
-        print "Tamanho da String de referencia: %i" % len(self.elementos)
+        print "Tamanho da String de referencia: %i" % len(self.elementos)+" | "+str(self.elementos)
         print "Total de frames: %i" %self.tamanho_mem
         print "O numero de faltas foi %i" % self.miss+" - %d" % ((self.miss*100)/(self.hit+self.miss))+"%"
         
@@ -146,6 +146,6 @@ class Memoria:
 ##Paginacao([array de elementos],tamanho da memoria) como o exemplo abaixo
 if __name__=="__main__":
     #mude aqui para alterar os parametros
-    configuracao = Memoria([9,7,9,4,1,4,0,3,0,6],3)
+    configuracao = Memoria([0,6,5,1,1,5,8,4,1,2],10)
     #mude aqui para alterar o algoritmo
     configuracao.lru()
